@@ -3,13 +3,13 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 10vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 60s linear;
   }
 }
 
@@ -35,4 +35,31 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.App-logo2 {
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+}
+
+.city-select {
+  padding: 8px;
+  font-size: 16px;
+  border: 5px solid #80D4FF;
+  border-radius: 4px;
+}
+
+/* Style the options in the dropdown */
+.city-select option {
+  background-color: #c7cfd3; /* Background color of each option */
+  color: #333; /* Text color of each option */
+  padding: 8px;
+  font-size: 14px;
+}
+
+/* Style the selected option */
+.city-select option:checked {
+  background-color: #e0e0e0; /* Background color of the selected option */
+  font-weight: bold;
 }
