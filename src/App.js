@@ -9,7 +9,6 @@ import React, { useState } from 'react';
     const [weatherIcon, setWeatherIcon] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
     const [temperature, setTemperature] = useState('');
-    const [temperatureFahrenheit, setTemperatureFahrenheit] = useState('');
     const [conditions, setConditions] = useState('');
     const [humidity, setHumidity] = useState('');
     const [wind_speed, setWindSpeed] = useState('');
@@ -17,28 +16,13 @@ import React, { useState } from 'react';
       function fetchWeatherHandler(event){
       const selectedZip = event.target.value;
 
-      /* THIS CAUSED A FLICKER EACH TIME A NEW CITY WAS SELECTED
-      - it was added so that you did not see the weather section until a city was selected
-      - I did not update the above code so that could have been the problem (ex: const [selectedCity, setSelectedCity] = useState('');
- )
-      setWeatherIcon(null);
-      setSelectedCity(null);
-      setTemperatureFahrenheit(null);
-      setConditions(null);
-      setHumidity(null);
-      setWindSpeed(null);
-      */
-
-      fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${selectedZip}&appid=b9db673980eaac7fbd2bb17f5c7aa904`)
+      fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${selectedZip}&appid=b9db673980eaac7fbd2bb17f5c7aa904&units=imperial`)
       .then(response => response.json())
       .then(data => {
-
-        const temperatureInFahrenheit = ((data.main.temp - 273.15) * 9/5) + 32;
         
         setWeatherIcon(data.weather[0].icon);
         setSelectedCity(data.name);
         setTemperature(data.main.temp);
-        setTemperatureFahrenheit(temperatureInFahrenheit);
         setConditions(data.weather[0].description);
         setHumidity(data.main.humidity);
         setWindSpeed(data.wind.speed);
@@ -51,8 +35,8 @@ import React, { useState } from 'react';
         <Header/>
         <img src={logo} className="App-logo" alt="logo" />
         <label htmlFor="cities">Select a City Below:</label>
-        <select className="city-select" onChange={fetchWeatherHandler} name="cities" id="cities" value={selectedCity}>
-          <option value="" disabled>Select a City</option>
+        <select className="city-select" onChange={fetchWeatherHandler} name="cities" id="cities">
+          <option value="" >Select a City</option>
           <option value="98101">Seattle, WA</option>
           <option value="10001">New York, NY</option>
           <option value="60601">Chicago, IL</option>
@@ -68,7 +52,7 @@ import React, { useState } from 'react';
         <Weather
             weatherIcon={weatherIcon}
             city={selectedCity}
-            temperature={temperatureFahrenheit}
+            temperature={temperature}
             conditions={conditions}
             humidity={humidity}
             wind_speed={wind_speed}
